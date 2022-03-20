@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap");
+
+body {
+  margin: 0;
+  padding-top: 80px;
+  font-family: "Nanum Gothic Coding", sans-serif;
+  font-weight: 400;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  transition: all 0.1s;
+}
+
+input:disabled {
+  background-color: #f6f6f6;
+}
