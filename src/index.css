@@ -8,9 +8,10 @@
 body {
   margin: 0;
   padding-top: 80px;
-  font-family: 'GowunDodum-Regular', serif;
+  font-family: 'GowunDodum-Regular', sans-serif;
   font-weight: 400;
   color: #333;
+  line-height: 1.6 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

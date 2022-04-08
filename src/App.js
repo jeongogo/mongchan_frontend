@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home.page";
 import LoginPage from "./pages/auth/Login.page";
+import RegisterPage from "./pages/auth/Register.page";
 import PostSearchPage from "./pages/post/Search.page";
 import PostListPage from "./pages/post/List.page";
 import PostWritePage from "./pages/post/Write.page";
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/posts/" element={<PostListPage />} />
           <Route path="/posts/category/:category" element={<PostListPage />} />
           <Route path="/posts/search" element={<PostSearchPage />} />

@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-const Login = ({ onSubmit, error }) => {
+const Register = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -30,6 +29,21 @@ const Login = ({ onSubmit, error }) => {
             </div>
           </li>
           <li className="flex items-start py-3">
+            <label className="w-32 text-right text-lg mr-4 pt-1">닉네임</label>
+            <div className="w-full">
+              <input
+                type="text"
+                className="border-b border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2  text-lg"
+                {...register("nickname", { required: true })}
+              />
+              {errors.name && (
+                <div className="w-full mt-2 text-xs text-red-500">
+                  필수 입력입니다.
+                </div>
+              )}
+            </div>
+          </li>
+          <li className="flex items-start py-3">
             <label className="w-32 text-right text-lg mr-4 pt-1">
               비밀번호
             </label>
@@ -47,18 +61,14 @@ const Login = ({ onSubmit, error }) => {
             </div>
           </li>
         </ul>
-        <div className="flex justify-center mt-4 pl-8 text-red-500">
-          {error}
-        </div>
-        <div className="flex justify-center mt-4 pl-28">
+        <div className="flex justify-center mt-6 pl-24">
           <button type="submit" className="w-40 h-12 rounded-3xl bg-yellow-400">
-            로그인
+            회원가입
           </button>
-          <Link to="/register" className="flex items-center ml-4 justify-center w-40 h-12 rounded-3xl bg-yellow-400">회원가입</Link>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Register

@@ -21,7 +21,7 @@ const LoginContainer = () => {
   };
 
   return (
-    <div className="max-w-xl m-auto mt-8 py-6 relative">
+    <div className="max-w-xl m-auto mt-32 py-6 relative">
       <Login onSubmit={onSubmit} error={error} />
     </div>
   );

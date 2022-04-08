@@ -42,6 +42,7 @@ const PostListContainer = () => {
       res = await client(`/api/posts/category/${category}`);
       return res.data;
     } else {
+      setCategory('');
       res = await client("/api/posts");
     }
     return res.data;

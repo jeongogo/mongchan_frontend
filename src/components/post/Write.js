@@ -7,7 +7,9 @@ const PostWrite = ({ onSubmit }) => {
     formState: { errors },
   } = useForm();
 
-  const onRegister = (data) => onSubmit(data);
+  const onRegister = (data) => {
+    onSubmit(data);
+  };
 
   return (
     <div className="py-14 pl-12 pr-20 bg-white shadow-3xl rounded-3xl">
@@ -36,7 +38,7 @@ const PostWrite = ({ onSubmit }) => {
               <input
                 type="text"
                 className="border-b border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2"
-                {...register("material_main")}
+                {...register("material")}
               />
             </div>
           </li>

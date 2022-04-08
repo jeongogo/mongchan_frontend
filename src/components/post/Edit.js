@@ -19,7 +19,9 @@ const PostEdit = ({ post, goBack, onSubmit }) => {
     goBack();
   };
 
-  const onRegister = (data) => onSubmit(data);
+  const onRegister = (data) => {
+    onSubmit(data)
+  };
 
   return (
     <div className="py-14 pl-12 pr-20 bg-white shadow-3xl rounded-3xl">

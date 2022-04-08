@@ -33,6 +33,9 @@ const Header = ({ user, onLogout, category }) => {
         <div className="ml-auto">
           <ul className="flex pr-4">
             <li className="mx-4 text-lg">
+              <Link to="/posts">전체</Link>
+            </li>
+            <li className="mx-4 text-lg">
               <Link to="/posts/category/korean" className={category === "한식" ? "underline" : null}>한식</Link>
             </li>
             <li className="mx-4 text-lg">

@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useStore from "../../modules/store";
 import client from "../../lib/api/client";
+import useStore from "../../modules/store";
 import Write from "../../components/post/Write";
 
 const PostWriteContainer = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
+  const setCategory = useStore(state => state.setCategory);
 
-  // Login Check
-  // useEffect(() => {
-  //   if (!user) {
-  //     alert("로그인이 필요합니다.");
-  //     navigate("/login");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+    }
+    setCategory('');
+  }, []);
 
   // addAthlete
   const onSubmit = async (newPost) => {
