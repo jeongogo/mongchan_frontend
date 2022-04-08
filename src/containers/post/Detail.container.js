@@ -1,5 +1,6 @@
-import { useQuery } from "react-query";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useStore from '../../modules/store';
 import client from "../../lib/api/client";
 import PostDetail from "../../components/post/Detail";
 import Loader from "../../components/common/Loader";
@@ -7,6 +8,9 @@ import Loader from "../../components/common/Loader";
 const PostDetailContainer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [post, setPost] = useState();
+  const setCategory = useStore(state => state.setCategory);
 
   const goBack = () => {
     navigate(-1);
@@ -17,23 +21,26 @@ const PostDetailContainer = () => {
   };
 
   const getPost = async () => {
-    const res = await client.get(`/api/posts/${id}`);
-    return res.data;
+    setIsLoading(true);
+    try {
+      const res = await client.get(`/api/posts/detail/${id}`);
+      setPost(res.data);
+      setCategory(res.data.category);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+    }
   };
 
-  const { isLoading, data, error } = useQuery("postDetail", getPost);
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <div>error</div>;
-  }
+  useEffect(() => {
+    getPost();
+  }, []);
 
   return (
     <div className="max-w-3xl m-auto py-16 relative">
-      <PostDetail post={data[0]} goBack={goBack} goEdit={goEdit} />
+      {isLoading && <Loader />}
+      {post && <PostDetail post={post} goBack={goBack} goEdit={goEdit} />}
     </div>
   );
 };

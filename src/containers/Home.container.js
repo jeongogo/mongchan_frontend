@@ -1,43 +1,39 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
-import Post from "../components/post/Post";
+import React, { useEffect, useState } from "react";
+import client from "../lib/api/client";
+import useStore from '../modules/store';
+import Home from "../components/Home";
 import Loader from "../components/common/Loader";
-import { FiEdit } from "react-icons/fi";
 
 const HomeContainer = () => {
-  const getPosts = async () => {
-    const data = await fetch("/api/posts");
-    return data.json();
+  const [isLoading, setIsLoading] = useState(false);
+  const [post, setPost] = useState();
+  const setCategory = useStore(state => state.setCategory);
+
+  const getRandomPost = async () => {
+    setIsLoading(true);
+    try {
+      const res = await client("/api/posts/random");
+      setPost(res.data[0]);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+    }
   };
 
-  const { isLoading, data, error } = useQuery("posts", getPosts);
+  useEffect(() => {
+    getRandomPost();
+    setCategory('');
+  }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <div>error</div>;
+  const refresh = () => {
+    getRandomPost();
   }
 
   return (
     <div className="max-w-5xl m-auto py-16 relative">
-      <div className="fixed right-8 bottom-20">
-        <Link
-          to={"/posts/write"}
-          className="block text-2xl px-4 py-4 rounded-full shadow-lg border border-gray-100"
-        >
-          <FiEdit />
-        </Link>
-      </div>
-      <div className="py-10 pl-12 pr-12 bg-white shadow-3xl rounded-3xl">
-        <ul className="grid">
-          {data.map((post) => (
-            <Post key={post._id} post={post} />
-          ))}
-        </ul>
-      </div>
+      {isLoading && <Loader />}
+      {post && <Home post={post} refresh={refresh} />}
     </div>
   );
 };

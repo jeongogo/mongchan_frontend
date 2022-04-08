@@ -1,30 +1,49 @@
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import client from "../../lib/api/client";
 import PostEdit from "../../components/post/Edit";
 import Loader from "../../components/common/Loader";
 
 const PostDetailContainer = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [post, setPost] = useState();
 
-  const getPost = async () => {
-    const res = await client.get(`/api/posts/${id}`);
-    return res.data;
+  const goBack = () => {
+    navigate(-1);
   };
 
-  const { isLoading, data, error } = useQuery("postDetail", getPost);
+  const getPost = async () => {
+    setIsLoading(true);
+    try {
+      const res = await client.get(`/api/posts/detail/${id}`);
+      setPost(res.data);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+    }
+  };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  useEffect(() => {
+    getPost();
+  }, []);
 
-  if (error) {
-    return <div>error</div>;
-  }
+  const onSubmit = async (updatePost) => {
+    try {
+      await client.patch(`/api/posts/${id}`, updatePost);
+      alert("수정 완료되었습니다.");
+      navigate(`/posts/`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="max-w-3xl m-auto py-16 relative">
-      <PostEdit post={data[0]} />
+      {isLoading && <Loader />}
+      {post && <PostEdit post={post} goBack={goBack} onSubmit={onSubmit} />}
     </div>
   );
 };

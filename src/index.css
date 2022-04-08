@@ -1,9 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap");
+@font-face {
+  font-family: 'GowunDodum-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
   margin: 0;
   padding-top: 80px;
-  font-family: "Nanum Gothic Coding", sans-serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-weight: 400;
   color: #333;
   -webkit-font-smoothing: antialiased;

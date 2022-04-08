@@ -14,7 +14,7 @@ const PostWrite = ({ onSubmit }) => {
       <form onSubmit={handleSubmit(onRegister)} autoComplete="off">
         <ul className="w-full m-auto">
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">제목</label>
+            <label className="w-32 text-right mr-6 pt-1">제목</label>
             <div className="w-full">
               <input
                 type="text"
@@ -29,8 +29,8 @@ const PostWrite = ({ onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">
-              메인재료
+            <label className="w-32 text-right mr-6 pt-1">
+              재료
             </label>
             <div className="w-full">
               <input
@@ -41,17 +41,7 @@ const PostWrite = ({ onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">부재료</label>
-            <div className="w-full">
-              <input
-                type="text"
-                className="border-b border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2"
-                {...register("material_sub")}
-              />
-            </div>
-          </li>
-          <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">
+            <label className="w-32 text-right mr-6 pt-1">
               카테고리
             </label>
             <div className="w-full pt-2">
@@ -126,7 +116,7 @@ const PostWrite = ({ onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">양념</label>
+            <label className="w-32 text-right mr-6 pt-1">양념</label>
             <div className="w-full">
               <input
                 type="text"
@@ -136,7 +126,7 @@ const PostWrite = ({ onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3 mt-4">
-            <label className="w-32 text-right text-lg mr-6 pt-1">내용</label>
+            <label className="w-32 text-right mr-6 pt-1">조리 순서</label>
             <div className="w-full">
               <textarea
                 className="border border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2 h-40 rounded-sm resize-none"

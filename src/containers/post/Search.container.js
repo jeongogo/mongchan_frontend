@@ -1,11 +1,14 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import client from "../../lib/api/client";
+import useStore from '../../modules/store';
 import Post from "../../components/post/Post";
 import Loader from "../../components/common/Loader";
 
 const SearchContainer = () => {
   const { search } = useLocation();
+  const setCategory = useStore(state => state.setCategory);
 
   const searchPosts = async () => {
     const res = await client.get(`/api/posts/search${search}`);
@@ -16,6 +19,10 @@ const SearchContainer = () => {
     ["searchPosts", search],
     searchPosts
   );
+
+  useEffect(() => {
+    setCategory('');
+  });
 
   if (isLoading) {
     return <Loader />;

@@ -3,7 +3,9 @@ import { devtools, persist } from "zustand/middleware";
 
 let store = (set) => ({
   user: null,
+  category: null,
   setUser: (user) => set(() => ({ user: user })),
+  setCategory: (category) => set(() => ({ category: category })),
   removeUser: () => set({ user: null }),
 });
 

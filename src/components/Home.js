@@ -1,23 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FiEdit, FiRefreshCw } from "react-icons/fi";
+import { IoRefresh } from "react-icons/io5";
 
-const Home = () => {
+
+const Home = ({ post, refresh }) => {
+  const onRefresh = () => refresh();
+
   return (
-    <div className="max-w-md m-auto my-10 px-6 py-12 bg-white shadow-3xl rounded-3xl text-center">
-      <div className="flex justify-center mt-10">
+    <div className="max-w-md m-auto my-10 px-6 py-12 bg-white shadow-3xl rounded-3xl text-center relative">
+      <div className="fixed right-8 bottom-20">
         <Link
-          to="/posts"
-          className="text-lg py-3 px-8 mr-3 bg-yellow-400 rounded-3xl"
+          to={"/posts/write"}
+          className="block text-2xl px-4 py-4 rounded-full shadow-lg border border-gray-100"
         >
-          레시피 리스트
-        </Link>
-        <Link
-          to="/posts/write"
-          className="text-lg py-3 px-8 mr-3 bg-yellow-400 rounded-3xl"
-        >
-          레시피 추가
+          <FiEdit />
         </Link>
       </div>
+      <button type="button" className="absolute top-6 right-6 text-2xl" onClick={onRefresh}>
+        <IoRefresh />
+      </button>
+      <Link to={`/posts/detail/${post._id}`}>{post.title}</Link>
     </div>
   );
 };

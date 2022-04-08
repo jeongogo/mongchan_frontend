@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-const PostEdit = ({ post, onSubmit }) => {
+const PostEdit = ({ post, goBack, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -8,13 +8,16 @@ const PostEdit = ({ post, onSubmit }) => {
   } = useForm({
     defaultValues: {
       title: post.title,
-      material_main: post.material_main,
-      material_sub: post.material_sub,
+      material: post.material,
       category: post.category,
       seasoning: post.seasoning,
       content: post.content,
     },
   });
+
+  const onGoBack = () => {
+    goBack();
+  };
 
   const onRegister = (data) => onSubmit(data);
 
@@ -23,7 +26,7 @@ const PostEdit = ({ post, onSubmit }) => {
       <form onSubmit={handleSubmit(onRegister)} autoComplete="off">
         <ul className="w-full m-auto">
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">제목</label>
+            <label className="w-32 text-right mr-6 pt-1">제목</label>
             <div className="w-full">
               <input
                 type="text"
@@ -38,29 +41,19 @@ const PostEdit = ({ post, onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">
-              메인재료
+            <label className="w-32 text-right mr-6 pt-1">
+              재료
             </label>
             <div className="w-full">
               <input
                 type="text"
                 className="border-b border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2"
-                {...register("material_main")}
+                {...register("material")}
               />
             </div>
           </li>
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">부재료</label>
-            <div className="w-full">
-              <input
-                type="text"
-                className="border-b border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2"
-                {...register("material_sub")}
-              />
-            </div>
-          </li>
-          <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">
+            <label className="w-32 text-right mr-6 pt-1">
               카테고리
             </label>
             <div className="w-full pt-2">
@@ -135,7 +128,7 @@ const PostEdit = ({ post, onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3">
-            <label className="w-32 text-right text-lg mr-6 pt-1">양념</label>
+            <label className="w-32 text-right mr-6 pt-1">양념</label>
             <div className="w-full">
               <input
                 type="text"
@@ -145,7 +138,7 @@ const PostEdit = ({ post, onSubmit }) => {
             </div>
           </li>
           <li className="flex items-start py-3 mt-4">
-            <label className="w-32 text-right text-lg mr-6 pt-1">내용</label>
+            <label className="w-32 text-right mr-6 pt-1">조리 순서</label>
             <div className="w-full">
               <textarea
                 className="border border-gray-300 focus:border-yellow-400 outline-none w-full py-1 px-2 h-40 rounded-sm resize-none"
@@ -154,10 +147,17 @@ const PostEdit = ({ post, onSubmit }) => {
             </div>
           </li>
         </ul>
-        <div className="flex justify-center mt-4 pl-8">
+        <div className="flex justify-center mt-4 pl-28">
+          <button
+            type="button"
+            className="w-40 h-12 mr-2 font-medium rounded-3xl bg-gray-200"
+            onClick={onGoBack}
+          >
+            취소
+          </button>
           <button
             type="submit"
-            className="w-40 h-12 ml-16 rounded-3xl bg-yellow-400"
+            className="w-40 h-12 mr-2 font-medium rounded-3xl bg-yellow-400"
           >
             수정하기
           </button>
