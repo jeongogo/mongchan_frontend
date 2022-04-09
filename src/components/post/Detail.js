@@ -1,8 +1,8 @@
-import Parser from 'html-react-parser';
+import Parser from "html-react-parser";
 
 const PostDetail = ({ post, goBack, goEdit }) => {
   const { title, material, seasoning, content, author } = post;
-  post.content = post.content.replace(/\n/g, '<br/>');
+  post.content = post.content.replace(/\n/g, "<br/>");
 
   const onGoBack = () => {
     goBack();

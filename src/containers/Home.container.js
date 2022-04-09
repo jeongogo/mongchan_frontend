@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import client from "../lib/api/client";
-import useStore from '../modules/store';
+import useStore from "../modules/store";
 import Home from "../components/Home";
 import Loader from "../components/common/Loader";
 
 const HomeContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState();
-  const setCategory = useStore(state => state.setCategory);
+  const setCategory = useStore((state) => state.setCategory);
 
   const getRandomPost = async () => {
     setIsLoading(true);
@@ -23,12 +23,12 @@ const HomeContainer = () => {
 
   useEffect(() => {
     getRandomPost();
-    setCategory('');
+    setCategory("");
   }, []);
 
   const refresh = () => {
     getRandomPost();
-  }
+  };
 
   return (
     <div className="max-w-5xl m-auto py-16 relative">
