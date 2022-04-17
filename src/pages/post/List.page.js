@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import PostListContainer from "../../containers/post/List.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import PostListContainer from "../../containers/Post/List.container";
 
 const PostListPage = () => {
   return (

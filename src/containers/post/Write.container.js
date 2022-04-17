@@ -2,19 +2,19 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "../../lib/api/client";
 import useStore from "../../modules/store";
-import Write from "../../components/post/Write";
+import Write from "../../components/Post/Write";
 
 const PostWriteContainer = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
-  const setCategory = useStore(state => state.setCategory);
+  const setCategory = useStore((state) => state.setCategory);
 
   useEffect(() => {
     if (!user) {
       alert("로그인이 필요합니다.");
       navigate("/login");
     }
-    setCategory('');
+    setCategory("");
   }, []);
 
   // addAthlete

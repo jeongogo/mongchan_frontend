@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/Home.page";
-import LoginPage from "./pages/auth/Login.page";
-import RegisterPage from "./pages/auth/Register.page";
-import PostSearchPage from "./pages/post/Search.page";
-import PostListPage from "./pages/post/List.page";
-import PostWritePage from "./pages/post/Write.page";
-import PostDetailPage from "./pages/post/Detail.page";
-import PostEditPage from "./pages/post/Edit.page";
+import HomePage from "./pages/Home/Home.page";
+import LoginPage from "./pages/Auth/Login.page";
+import RegisterPage from "./pages/Auth/Register.page";
+import PostSearchPage from "./pages/Post/Search.page";
+import PostListPage from "./pages/Post/List.page";
+import PostWritePage from "./pages/Post/Write.page";
+import PostDetailPage from "./pages/Post/Detail.page";
+import PostEditPage from "./pages/Post/Edit.page";
 import "./tailwind.css";
 
 function App() {

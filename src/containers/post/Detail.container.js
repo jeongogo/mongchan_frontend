@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useStore from '../../modules/store';
+import useStore from "../../modules/store";
 import client from "../../lib/api/client";
-import PostDetail from "../../components/post/Detail";
-import Loader from "../../components/common/Loader";
+import PostDetail from "../../components/Post/Detail";
+import Loader from "../../components/Common/Loader";
 
 const PostDetailContainer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState();
-  const setCategory = useStore(state => state.setCategory);
+  const setCategory = useStore((state) => state.setCategory);
 
   const goBack = () => {
     navigate(-1);

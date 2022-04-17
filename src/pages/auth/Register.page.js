@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import RegisterContainer from "../../containers/auth/Register.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import RegisterContainer from "../../containers/Auth/Register.container";
 
 const RegisterPage = () => {
   return (
@@ -7,7 +7,7 @@ const RegisterPage = () => {
       <HeaderContainer />
       <RegisterContainer />
     </>
-  )
-}
+  );
+};
 
 export default RegisterPage;

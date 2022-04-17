@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../modules/store";
 import client from "../../lib/api/client";
-import Login from "../../components/auth/Login";
+import Login from "../../components/Auth/Login";
 
 const LoginContainer = () => {
   const navigate = useNavigate();

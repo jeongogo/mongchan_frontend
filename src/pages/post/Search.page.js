@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import PostSearchContainer from "../../containers/post/Search.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import PostSearchContainer from "../../containers/Post/Search.container";
 
 const SearchPage = () => {
   return (

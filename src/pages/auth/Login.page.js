@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import LoginContainer from "../../containers/auth/Login.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import LoginContainer from "../../containers/Auth/Login.container";
 
 const LoginPage = () => {
   return (

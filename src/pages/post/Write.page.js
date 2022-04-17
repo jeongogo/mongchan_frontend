@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import PostWriteContainer from "../../containers/post/Write.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import PostWriteContainer from "../../containers/Post/Write.container";
 
 const PostWritePage = () => {
   return (

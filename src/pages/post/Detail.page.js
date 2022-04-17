@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import PostDetailContainer from "../../containers/post/Detail.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import PostDetailContainer from "../../containers/Post/Detail.container";
 
 const PostDetailPage = () => {
   return (

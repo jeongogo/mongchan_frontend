@@ -1,14 +1,14 @@
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import client from "../../lib/api/client";
-import useStore from '../../modules/store';
-import Post from "../../components/post/Post";
-import Loader from "../../components/common/Loader";
+import useStore from "../../modules/store";
+import Post from "../../components/Post/Post";
+import Loader from "../../components/Common/Loader";
 import { FiEdit } from "react-icons/fi";
 
 const PostListContainer = () => {
   const { category } = useParams();
-  const setCategory = useStore(state => state.setCategory);
+  const setCategory = useStore((state) => state.setCategory);
 
   const getPosts = async () => {
     let res = [];
@@ -42,7 +42,7 @@ const PostListContainer = () => {
       res = await client(`/api/posts/category/${category}`);
       return res.data;
     } else {
-      setCategory('');
+      setCategory("");
       res = await client("/api/posts");
     }
     return res.data;
@@ -59,7 +59,14 @@ const PostListContainer = () => {
   }
 
   return (
-    <div className="max-w-5xl m-auto py-16 relative">
+    <div className="py-16 px-4 relative">
+      <div className="max-w-xl m-auto py-10 pl-12 pr-12 bg-white shadow-3xl rounded-3xl">
+        <ul className="grid grid-cols-4 gap-2">
+          {data.map((post) => (
+            <Post key={post._id} post={post} />
+          ))}
+        </ul>
+      </div>
       <div className="fixed right-8 bottom-20">
         <Link
           to={"/posts/write"}
@@ -67,13 +74,6 @@ const PostListContainer = () => {
         >
           <FiEdit />
         </Link>
-      </div>
-      <div className="py-10 pl-12 pr-12 bg-white shadow-3xl rounded-3xl">
-        <ul className="grid grid-cols-4 gap-2">
-          {data.map((post) => (
-            <Post key={post._id} post={post} />
-          ))}
-        </ul>
       </div>
     </div>
   );

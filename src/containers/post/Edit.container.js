@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import client from "../../lib/api/client";
-import PostEdit from "../../components/post/Edit";
-import Loader from "../../components/common/Loader";
+import PostEdit from "../../components/Post/Edit";
+import Loader from "../../components/Common/Loader";
 
 const PostDetailContainer = () => {
   const { id } = useParams();

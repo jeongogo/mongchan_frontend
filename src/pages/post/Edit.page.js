@@ -1,5 +1,5 @@
-import HeaderContainer from "../../containers/Header.container";
-import PostEditContainer from "../../containers/post/Edit.container";
+import HeaderContainer from "../../containers/Layout/Header.container";
+import PostEditContainer from "../../containers/Post/Edit.container";
 
 const PostEditPage = () => {
   return (
