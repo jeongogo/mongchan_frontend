@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import client from "../../lib/api/client";
 import useStore from "../../modules/store";
-import Post from "../../components/Post/Post";
 import Loader from "../../components/Common/Loader";
 
 const SearchContainer = () => {
@@ -37,7 +36,14 @@ const SearchContainer = () => {
       <div className="py-10 pl-12 pr-12 bg-white shadow-3xl rounded-3xl">
         <ul>
           {data.map((post) => (
-            <Post key={post._id} post={post} />
+            <li key={post._id}>
+              <Link
+                to={`/posts/detail/${post._id}`}
+                className="block text-center"
+              >
+                {post.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>

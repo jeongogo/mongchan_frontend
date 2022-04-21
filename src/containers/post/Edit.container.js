@@ -41,10 +41,10 @@ const PostDetailContainer = () => {
   };
 
   return (
-    <div className="max-w-3xl m-auto py-16 relative">
+    <>
       {isLoading && <Loader />}
       {post && <PostEdit post={post} goBack={goBack} onSubmit={onSubmit} />}
-    </div>
+    </>
   );
 };
 

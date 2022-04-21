@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import client from "../../lib/api/client";
 import useStore from "../../modules/store";
-import Post from "../../components/Post/Post";
+import List from "../../components/Post/List";
+import WriteBtn from "../../components/Post/WriteBtn";
 import Loader from "../../components/Common/Loader";
-import { FiEdit } from "react-icons/fi";
 
 const PostListContainer = () => {
   const { category } = useParams();
@@ -59,23 +59,10 @@ const PostListContainer = () => {
   }
 
   return (
-    <div className="py-16 px-4 relative">
-      <div className="max-w-xl m-auto py-10 pl-12 pr-12 bg-white shadow-3xl rounded-3xl">
-        <ul className="grid grid-cols-4 gap-2">
-          {data.map((post) => (
-            <Post key={post._id} post={post} />
-          ))}
-        </ul>
-      </div>
-      <div className="fixed right-8 bottom-20">
-        <Link
-          to={"/posts/write"}
-          className="block text-2xl px-4 py-4 rounded-full shadow-lg border border-gray-100"
-        >
-          <FiEdit />
-        </Link>
-      </div>
-    </div>
+    <>
+      <List data={data} />
+      <WriteBtn />
+    </>
   );
 };
 
