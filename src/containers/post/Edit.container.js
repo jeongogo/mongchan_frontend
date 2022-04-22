@@ -10,10 +10,6 @@ const PostDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState();
 
-  const goBack = () => {
-    navigate(-1);
-  };
-
   const getPost = async () => {
     setIsLoading(true);
     try {
@@ -43,7 +39,7 @@ const PostDetailContainer = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {post && <PostEdit post={post} goBack={goBack} onSubmit={onSubmit} />}
+      {post && <PostEdit post={post} onSubmit={onSubmit} />}
     </>
   );
 };

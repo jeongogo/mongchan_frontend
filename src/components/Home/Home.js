@@ -14,16 +14,15 @@ const Home = ({ post, refresh }) => {
             <IoRefresh />
           </button>
         </div>
-        <div className="mt-6 text-center">
-          <div className="relative">
-            <Link
-              to={`/posts/detail/${post._id}`}
-              className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-xl"
-            >
+        <div className="mt-6 h-40 shadow-3xl rounded-3xl text-center relative">
+          <Link to={`/posts/detail/${post._id}`} className="block h-full">
+            <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-lg">
               {post.title}
-            </Link>
-            <div className="h-40 shadow-3xl rounded-3xl"></div>
-          </div>
+            </div>
+            <div className="">
+              <img src="" alt="" />
+            </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -15,11 +15,7 @@ const RegisterContainer = () => {
     }
   };
 
-  return (
-    <div className="max-w-xl m-auto mt-32 py-6 relative">
-      <Register onSubmit={onSubmit} />
-    </div>
-  );
+  return <Register onSubmit={onSubmit} />;
 };
 
 export default RegisterContainer;

@@ -8,6 +8,7 @@ import Loader from "../../components/Common/Loader";
 
 const PostListContainer = () => {
   const { category } = useParams();
+  const user = useStore((state) => state.user);
   const setCategory = useStore((state) => state.setCategory);
 
   const getPosts = async () => {
@@ -60,7 +61,7 @@ const PostListContainer = () => {
 
   return (
     <>
-      <List data={data} />
+    {user && <List data={data} />}
       <WriteBtn />
     </>
   );

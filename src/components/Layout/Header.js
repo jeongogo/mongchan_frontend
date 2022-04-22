@@ -1,34 +1,34 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import useStore from "../../modules/store";
 import { useForm } from "react-hook-form";
 import { GoSearch } from "react-icons/go";
-import { FiLogOut, FiLogIn } from "react-icons/fi";
+import { FiLogIn, FiUser } from "react-icons/fi";
 
-const Header = ({ user, category, onLogout }) => {
+const Header = () => {
+  const user = useStore((state) => state.user);
+  const category = useStore((state) => state.category);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const searchRef = useRef();
   const navigate = useNavigate();
-  const [showSearch, setShowSearch] = useState(false);
 
-  // Form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // Show Search
   const onSearchShow = () => {
-    setShowSearch((prev) => !prev);
+    setShowSearchModal(true);
   };
 
-  // Search
   const onSearch = (data) => {
     navigate(`/posts/search?title=${data.name}`);
   };
 
-  // Submit Logout
-  const onSubmitLogout = () => {
-    onLogout();
-  };
+  const handleSearchModal = (e) => {
+    if (showSearchModal && (!searchRef.current || !searchRef.current.contains(e.target))) setShowSearchModal(false);
+  }
 
   return (
     <div className="w-full max-w-2xl m-auto bg-white z-10">
@@ -41,9 +41,9 @@ const Header = ({ user, category, onLogout }) => {
             <GoSearch />
           </div>
           {user ? (
-            <button type="button" onClick={onSubmitLogout}>
-              <FiLogOut />
-            </button>
+            <Link to="/mypage" className="text-2xl">
+              <FiUser />
+            </Link>
           ) : (
             <Link to="/login">
               <FiLogIn />
@@ -51,13 +51,13 @@ const Header = ({ user, category, onLogout }) => {
           )}
         </div>
       </div>
-      {showSearch && (
-        <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 bg-black z-20">
+      {showSearchModal && (
+        <div className="fixed top-0 left-0 w-full h-full bg-opacity-50 bg-black z-20" onClick={handleSearchModal}>
           <form onSubmit={handleSubmit(onSearch)} autoComplete="off">
-            <div className="absolute top-1/3 -translate-y-1/2 left-1/2 -translate-x-1/2 w-full max-w-xl px-4">
+            <div className="absolute top-1/3 -translate-y-1/2 left-1/2 -translate-x-1/2 w-full max-w-xl px-4" ref={searchRef}>
               <input
                 type="text"
-                className="border rounded-full text-xl w-full py-3 pl-6 pr-12 focus:border-yellow-400 outline-none"
+                className="border rounded-full text-lg w-full py-3 pl-6 pr-12 focus:border-yellow-400 outline-none"
                 {...register("name", { required: true })}
                 placeholder={errors.name && "필수 입력입니다."}
                 autoFocus

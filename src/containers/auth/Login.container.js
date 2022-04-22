@@ -12,7 +12,7 @@ const LoginContainer = () => {
   const onSubmit = async (data) => {
     try {
       const res = await client.post("/api/auth/login", data);
-      setUser(res.data.username);
+      setUser(res.data);
       navigate("/");
     } catch (err) {
       setError("아이디 또는 비밀번호가 일치하지 않습니다.");
@@ -21,9 +21,9 @@ const LoginContainer = () => {
   };
 
   return (
-    <div className="max-w-xl m-auto mt-32 py-6 relative">
+    <>
       <Login onSubmit={onSubmit} error={error} />
-    </div>
+    </>
   );
 };
 
