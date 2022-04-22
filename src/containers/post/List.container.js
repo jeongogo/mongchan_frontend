@@ -45,8 +45,8 @@ const PostListContainer = () => {
     } else {
       setCategory("");
       res = await client("/api/posts");
+      return res.data;
     }
-    return res.data;
   };
 
   const { isLoading, data, error } = useQuery(["posts", category], getPosts);
@@ -61,8 +61,8 @@ const PostListContainer = () => {
 
   return (
     <>
-    {user && <List data={data} />}
-      <WriteBtn />
+      {user && <WriteBtn />}
+      <List data={data} />
     </>
   );
 };
