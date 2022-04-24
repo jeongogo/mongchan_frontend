@@ -11,9 +11,9 @@ const Register = ({ onSubmit }) => {
 
   return (
     <div className="px-4">
-      <div className="mt-10 py-8 px-8 bg-white shadow-3xl rounded-3xl">
+      <div className="max-w-md mt-10 ml-auto mr-auto py-8 px-8 bg-white shadow-3xl rounded-3xl">
         <form onSubmit={handleSubmit(onLogin)} autoComplete="off">
-          <ul className="max-w-xl m-auto">
+          <ul>
             <li className="flex items-start py-2">
               <label className="w-32 text-md pt-1">아이디</label>
               <div className="w-full">
@@ -45,9 +45,7 @@ const Register = ({ onSubmit }) => {
               </div>
             </li>
             <li className="flex items-start py-2">
-              <label className="w-32 text-md pt-1">
-                비밀번호
-              </label>
+              <label className="w-32 text-md pt-1">비밀번호</label>
               <div className="w-full">
                 <input
                   type="password"
@@ -63,14 +61,17 @@ const Register = ({ onSubmit }) => {
             </li>
           </ul>
           <div className="flex justify-center mt-6">
-            <button type="submit" className="w-full h-12 rounded-3xl bg-yellow-400">
+            <button
+              type="submit"
+              className="w-full h-12 rounded-3xl bg-yellow-400"
+            >
               회원가입
             </button>
           </div>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
