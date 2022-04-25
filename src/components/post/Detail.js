@@ -1,7 +1,9 @@
+import useStore from "../../modules/store";
 import Parser from "html-react-parser";
 
 const PostDetail = ({ post, goBack, goEdit }) => {
-  const { title, material, seasoning, content, thumbnail, author } = post;
+  const user = useStore((state) => state.user);
+  const { title, material, seasoning, content, author } = post;
   post.content = post.content.replace(/\n/g, "<br/>");
 
   const onGoBack = () => {
@@ -43,13 +45,15 @@ const PostDetail = ({ post, goBack, goEdit }) => {
               >
                 뒤로가기
               </button>
-              <button
-                type="button"
-                className="py-2 px-6 text-sm font-medium rounded-3xl bg-yellow-400"
-                onClick={onGoEdit}
-              >
-                수정하기
-              </button>
+              {user && user._id === post.author._id && (
+                <button
+                  type="button"
+                  className="py-2 px-6 text-sm font-medium rounded-3xl bg-yellow-400"
+                  onClick={onGoEdit}
+                >
+                  수정하기
+                </button>
+              )}
             </div>
           </div>
         </div>

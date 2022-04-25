@@ -17,7 +17,7 @@ const PostWriteContainer = () => {
       navigate("/login");
     }
     setCategory("");
-  }, []);
+  }, [setCategory, navigate, user]);
 
   const onSubmit = async (newPost) => {
     setIsLoading(true);
@@ -25,13 +25,13 @@ const PostWriteContainer = () => {
       if (newPost.file[0]) {
         const formData = new FormData();
         formData.append("file", newPost.file[0]);
-    
+
         const res = await client.post("/api/posts/upload", formData);
         newPost.thumbnail = res.data;
       }
       await client.post("/api/posts", newPost);
       setIsLoading(false);
-      navigate('/posts/');
+      navigate("/posts/");
     } catch (err) {
       setIsLoading(false);
       console.log(err);
