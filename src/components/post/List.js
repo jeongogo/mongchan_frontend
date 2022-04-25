@@ -11,7 +11,11 @@ const List = ({ data }) => {
               className="h-28 flex items-center justify-center bg-gray-50 overflow-hidden"
             >
               {post.thumbnail ? (
-                <img src={`/${post.thumbnail}`} alt="" className="w-full" />
+                <img
+                  src={`/upload/${post.thumbnail}`}
+                  alt=""
+                  className="w-full"
+                />
               ) : (
                 <h2>{post.title}</h2>
               )}
