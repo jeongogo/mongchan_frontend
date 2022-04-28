@@ -24,6 +24,7 @@ const Header = () => {
 
   const onSearch = (data) => {
     navigate(`/posts/search?title=${data.name}`);
+    setShowSearchModal(false);
   };
 
   const handleSearchModal = (e) => {

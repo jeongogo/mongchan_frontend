@@ -15,10 +15,10 @@ const PostDetail = ({ post, goBack, goEdit }) => {
   };
 
   return (
-    <div className="px-4 py-10">
+    <div className="px-4 py-10 md:py-12">
       <div className="max-w-xl ml-auto mr-auto">
-        <h2 className="mb-4 text-center text-xl font-bold">{title}</h2>
-        <div className="px-6 py-6 shadow-3xl rounded-3xl">
+        <h2 className="mb-4 md:mb-6 text-center text-xl font-bold">{title}</h2>
+        <div className="px-6 md:px-10 py-6 md:py-10 shadow-3xl rounded-3xl">
           <ul>
             <li className="py-3">
               <h3 className="mr-6 shrink-0 w-20 underline">재료</h3>

@@ -11,7 +11,7 @@ const Register = ({ onSubmit }) => {
 
   return (
     <div className="px-4">
-      <div className="max-w-md mt-10 ml-auto mr-auto py-8 px-8 bg-white shadow-3xl rounded-3xl">
+      <div className="max-w-md mt-10 md:mt-20 ml-auto mr-auto px-8 md:px-10 py-8 md:py-10 bg-white shadow-3xl rounded-3xl">
         <form onSubmit={handleSubmit(onLogin)} autoComplete="off">
           <ul>
             <li className="flex items-start py-2">
