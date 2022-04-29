@@ -20,9 +20,14 @@ const LoginContainer = () => {
     }
   };
 
+  const kakaoLogin = (res) => {
+    console.log(res);
+    navigate("/");
+  }
+
   return (
     <>
-      <Login onSubmit={onSubmit} error={error} />
+      <Login onSubmit={onSubmit} error={error} setError={setError} kakaoLogin={kakaoLogin} />
     </>
   );
 };

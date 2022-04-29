@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import KaKaoLogin from 'react-kakao-login';
 import { useForm } from "react-hook-form";
 
-const Login = ({ onSubmit, error }) => {
+const Login = ({ onSubmit, error, setError, kakaoLogin }) => {
   const {
     register,
     handleSubmit,
@@ -56,6 +57,12 @@ const Login = ({ onSubmit, error }) => {
             >
               로그인
             </button>
+            <KaKaoLogin
+              token={'0eb1170dc2d4792fec250441ed023311'}
+              onSuccess={(res) => kakaoLogin(res)}
+              onFailure={console.error}
+              onLogout={console.info}
+            />
             <Link
               to="/register"
               className="mt-3 flex items-center justify-center h-12 rounded-3xl bg-gray-200"
