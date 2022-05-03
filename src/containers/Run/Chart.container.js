@@ -1,7 +1,21 @@
+import { useEffect, useState } from 'react';
+import client from "../../lib/api/client";
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 const ChartContainer = () => {
+  const [runList, setRunList] = useState([]);
+
+  const getList = async () => {
+    const res = await client('/api/run');
+    setRunList(res.data);
+    console.log(res)
+  }
+  
+  useEffect(() => {
+    getList();
+  }, []);
+
   const options = {
     chart: {
       type: 'bar'
@@ -56,38 +70,7 @@ const ChartContainer = () => {
       '#C5E1A5',
       '#E6EE9C',
     ],
-    series: [
-      /* P */
-      { name: '이상원', data: [0, 0] },
-      { name: '안진홍', data: [0, 0] },
-      { name: '양지형', data: [0, 0] },
-      { name: '최원영', data: [0, 0] },
-      { name: '강나리', data: [0, 0] },
-      { name: '양정모', data: [0, 0] },
-      { name: '노기식', data: [0, 0] },
-      { name: '최수지', data: [0, 0] },
-      { name: '서하나', data: [0, 0] },
-      { name: '채송아', data: [0, 0] },
-      { name: '이재형', data: [0, 0] },
-      { name: '김태운', data: [0, 0] },
-      { name: '이은규', data: [0, 0] },
-      { name: '길영석', data: [0, 0] },
-      /* J */
-      { name: '박지수', data: [0, 0] },
-      { name: '홍영미', data: [0, 0] },
-      { name: '전홍찬', data: [0, 0] },
-      { name: '김동민', data: [0, 0] },
-      { name: '이유미', data: [0, 0] },
-      { name: '김수연', data: [0, 0] },
-      { name: '원다울', data: [0, 0] },
-      { name: '한동희', data: [0, 0] },
-      { name: '이지혜', data: [0, 0] },
-      { name: '정유진', data: [0, 0] },
-      { name: '심정윤', data: [0, 0] },
-      { name: '이예지', data: [0, 0] },
-      { name: '강전묵', data: [0, 0] },
-      { name: '유강민', data: [0, 0] },
-    ]
+    series: runList
   };  
   
   return (
