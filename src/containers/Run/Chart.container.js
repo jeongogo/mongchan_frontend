@@ -4,12 +4,23 @@ import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 const ChartContainer = () => {
+  const [teamJ, setTeamJ] = useState();
+  const [teamP, setTeamP] = useState();
   const [runList, setRunList] = useState([]);
 
   const getList = async () => {
     const res = await client('/api/run');
     setRunList(res.data);
-    console.log(res)
+    
+    let sumJ = null;
+    let sumP = null;
+
+    res.data.map((item) => {
+      sumJ += item.data[0];
+      sumP += item.data[1];
+    });
+    setTeamJ(sumJ.toFixed(2));
+    setTeamP(sumP.toFixed(2));
   }
   
   useEffect(() => {
@@ -76,6 +87,16 @@ const ChartContainer = () => {
   return (
     <div className='px-4 py-4'>
       <HighchartsReact highcharts={ Highcharts } options={ options }/>
+      <div className='flex justify-center text-center mt-10'>
+        <div className='px-10 py-6 shadow-3xl rounded-3xl mx-6'>
+          <h3>Team J</h3>
+          <p className='mt-1 font-bold text-3xl'>{teamJ}</p>
+        </div>
+        <div className='px-10 py-6 shadow-3xl rounded-3xl mx-6'>
+          <h3>Team P</h3>
+          <p className='mt-1 font-bold text-3xl'>{teamP}</p>
+        </div>
+      </div>
     </div>
   )
 }
