@@ -90,11 +90,11 @@ const ChartContainer = () => {
       <div className='flex justify-center text-center mt-10'>
         <div className='px-10 py-6 shadow-3xl rounded-3xl mx-6'>
           <h3>Team J</h3>
-          <p className='mt-1 font-bold text-3xl'>{teamJ}</p>
+          <p className='mt-1 font-bold text-2xl'>{teamJ}</p>
         </div>
         <div className='px-10 py-6 shadow-3xl rounded-3xl mx-6'>
           <h3>Team P</h3>
-          <p className='mt-1 font-bold text-3xl'>{teamP}</p>
+          <p className='mt-1 font-bold text-2xl'>{teamP}</p>
         </div>
       </div>
     </div>
