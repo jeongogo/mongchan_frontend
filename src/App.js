@@ -8,7 +8,8 @@ import PostListPage from "./pages/Post/List.page";
 import PostWritePage from "./pages/Post/Write.page";
 import PostDetailPage from "./pages/Post/Detail.page";
 import PostEditPage from "./pages/Post/Edit.page";
-import RunPage from "./pages/Run/Chart.page";
+import RunChartPage from "./pages/Run/Chart.page";
+import RunEditPage from "./pages/Run/Edit.page";
 import "./tailwind.css";
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
           <Route path="/posts/write" element={<PostWritePage />} />
           <Route path="/posts/detail/:id" element={<PostDetailPage />} />
           <Route path="/posts/edit/:id" element={<PostEditPage />} />
-          <Route path="/run" element={<RunPage />} />
+          <Route path="/run" element={<RunChartPage />} />
+          <Route path="/run/edit" element={<RunEditPage />} />
         </Routes>
       </BrowserRouter>
     </div>

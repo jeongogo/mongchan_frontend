@@ -25,6 +25,7 @@ const ChartContainer = () => {
   
   useEffect(() => {
     getList();
+    document.title = "제5회 레이크러너 팀전 레이스 대회"
   }, []);
 
   const options = {
