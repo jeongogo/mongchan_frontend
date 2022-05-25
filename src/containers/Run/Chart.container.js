@@ -32,6 +32,8 @@ const ChartContainer = () => {
   const url = window.location.href;
   const [teamJ, setTeamJ] = useState();
   const [teamP, setTeamP] = useState();
+  const [diffJ, setDiffJ] = useState();
+  const [diffP, setDiffP] = useState();
   const [runList, setRunList] = useState([]);
   const [visible, setVisible] = useState(true);
   const d_day = new Date('2022-05-26 00:00:00');
@@ -73,6 +75,8 @@ const ChartContainer = () => {
     });
     setTeamJ(sumJ.toFixed(2));
     setTeamP(sumP.toFixed(2));
+    setDiffJ((sumJ - sumP).toFixed(2));
+    setDiffP((sumP - sumJ).toFixed(2));
   }
   
   useEffect(() => {
@@ -202,10 +206,20 @@ const ChartContainer = () => {
         <div className='px-10 py-6 shadow-3xl rounded-3xl mx-4'>
           <h3>Team J</h3>
           <p className='mt-1 font-bold text-2xl'>{teamJ}</p>
+          <p className='mt-1 text-sm'>
+            {diffJ > 0 
+            ? (<span className=' text-red-600'>(+{diffJ})</span>) 
+            : (<span className='text-blue-600'>({diffJ})</span>)}
+          </p>
         </div>
         <div className='px-10 py-6 shadow-3xl rounded-3xl mx-4'>
           <h3>Team P</h3>
           <p className='mt-1 font-bold text-2xl'>{teamP}</p>
+          <p className='mt-1 text-sm'>
+            {diffP > 0 
+            ? (<span className=' text-red-600'>(+{diffP})</span>) 
+            : (<span className='text-blue-600'>({diffP})</span>)}
+          </p>
         </div>
       </div>
       {visible && (
