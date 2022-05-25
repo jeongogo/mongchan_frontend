@@ -1,7 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import client from "../../lib/api/client";
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import ReactCanvasConfetti from 'react-canvas-confetti';
+
+const canvasStyles = {
+  position: 'fixed',
+  pointerEvents: 'none',
+  width: '100%',
+  height: '100%',
+  top: 0,
+  left: 0
+};
 
 const ChartContainer = () => {
   const url = window.location.href;
@@ -51,7 +61,11 @@ const ChartContainer = () => {
   useEffect(() => {
     getList();
     initKakao();
-    document.title = "제5회 레이크러너 팀전 레이스 대회"
+    document.title = "제5회 레이크러너 팀전 레이스 대회";
+    const d_day = new Date('2022-05-26 00:00:00');
+    if (new Date().getTime() > d_day.getTime()) {
+      fire();
+    }
   }, []);
 
   const options = {
@@ -110,11 +124,56 @@ const ChartContainer = () => {
       '#BBDEFB',
     ],
     series: runList
-  };  
+  };
+
+  const refAnimationInstance = useRef(null);
+
+  const getInstance = useCallback((instance) => {
+    refAnimationInstance.current = instance;
+  }, []);
+
+  const makeShot = useCallback((particleRatio, opts) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio)
+      });
+  }, []);
+
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55
+    });
+
+    makeShot(0.2, {
+      spread: 60
+    });
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45
+    });
+  }, [makeShot]);
   
   return (
     <div className='px-4 py-4'>
       <HighchartsReact highcharts={ Highcharts } options={ options }/>
+      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
       <div className='flex justify-center text-center mt-10'>
         <div className='px-10 py-6 shadow-3xl rounded-3xl mx-4'>
           <h3>Team J</h3>
