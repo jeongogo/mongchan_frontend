@@ -19,12 +19,6 @@ function MyTimer({ expiryTimestamp }) {
     seconds,
     minutes,
     hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
   } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
   return (
@@ -40,6 +34,7 @@ const ChartContainer = () => {
   const [teamP, setTeamP] = useState();
   const [runList, setRunList] = useState([]);
   const [visible, setVisible] = useState(true);
+  const d_day = new Date('2022-05-26 00:00:00');
   
   const initKakao = () => {
     if (window.Kakao) {
@@ -83,12 +78,16 @@ const ChartContainer = () => {
   useEffect(() => {
     getList();
     initKakao();
-    document.title = "제5회 레이크러너 팀전 레이스 대회";
-
-    const d_day = new Date('2022-05-26 00:00:00');
+    document.title = "제5회 레이크러너 팀전 레이스 대회";    
 
     if (new Date().getTime() > d_day.getTime()) {
       fire();
+      setVisible(false);
+    }
+
+    const ua = navigator.userAgent.toLowerCase();
+
+    if ( ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("ipod") > -1 ) {
       setVisible(false);
     }
   }, []);
@@ -194,8 +193,6 @@ const ChartContainer = () => {
       startVelocity: 45
     });
   }, [makeShot]);
-
-  const time = new Date('2022-05-26 00:00:00');
   
   return (
     <div className='px-4 py-4'>
@@ -212,7 +209,7 @@ const ChartContainer = () => {
         </div>
       </div>
       {visible && (
-        <MyTimer expiryTimestamp={time} />
+        <MyTimer expiryTimestamp={d_day} autoStart={true} />
       )}
       <div className='flex justify-center text-center mt-10 fixed bottom-0 left-0 w-full'>
         <button type='button' className='w-full py-4 font-medium' style={{'backgroundColor': '#f3dc00', 'color': '#391d1d'}} onClick={shareKakao}>카카오톡으로 공유하기</button>
