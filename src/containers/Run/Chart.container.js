@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { useTimer } from 'react-timer-hook';
 import client from "../../lib/api/client";
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -13,14 +14,31 @@ const canvasStyles = {
   left: 0
 };
 
+function MyTimer({ expiryTimestamp }) {
+  const {
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+
+  return (
+    <div className='flex justify-center items-center mt-10'>
+      <div>남은 시간 {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}</div>
+    </div>
+  );
+}
+
 const ChartContainer = () => {
   const url = window.location.href;
   const [teamJ, setTeamJ] = useState();
   const [teamP, setTeamP] = useState();
   const [runList, setRunList] = useState([]);
-  const [diffHour, setDiffHour] = useState();
-  const [diffMin, setDiffMin] = useState();
-  const [diffSec, setDiffSec] = useState();
   const [visible, setVisible] = useState(true);
   
   const initKakao = () => {
@@ -73,17 +91,6 @@ const ChartContainer = () => {
       fire();
       setVisible(false);
     }
-
-    setInterval(() => {
-      const diff = d_day - new Date();
-      const hour = Math.floor(diff / (1000*60*60) % 24);
-      const min = Math.floor(diff / (1000*60) % 60);
-      const sec = Math.floor(diff / 1000 % 60);
-
-      setDiffHour(hour);
-      setDiffMin(min);
-      setDiffSec(sec);
-    }, 1000);
   }, []);
 
   const options = {
@@ -187,6 +194,8 @@ const ChartContainer = () => {
       startVelocity: 45
     });
   }, [makeShot]);
+
+  const time = new Date('2022-05-26 00:00:00');
   
   return (
     <div className='px-4 py-4'>
@@ -203,9 +212,7 @@ const ChartContainer = () => {
         </div>
       </div>
       {visible && (
-        <div className='flex justify-center items-center mt-10'>
-          <div>남은 시간 : {diffHour < 10 && 0}{diffHour}:{diffMin < 10 && 0}{diffMin}:{diffSec < 10 && 0}{diffSec}</div>
-        </div>
+        <MyTimer expiryTimestamp={time} />
       )}
       <div className='flex justify-center text-center mt-10 fixed bottom-0 left-0 w-full'>
         <button type='button' className='w-full py-4 font-medium' style={{'backgroundColor': '#f3dc00', 'color': '#391d1d'}} onClick={shareKakao}>카카오톡으로 공유하기</button>
