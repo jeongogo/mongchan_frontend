@@ -18,6 +18,10 @@ const ChartContainer = () => {
   const [teamJ, setTeamJ] = useState();
   const [teamP, setTeamP] = useState();
   const [runList, setRunList] = useState([]);
+  const [diffHour, setDiffHour] = useState();
+  const [diffMin, setDiffMin] = useState();
+  const [diffSec, setDiffSec] = useState();
+  const [visible, setVisible] = useState(true);
   
   const initKakao = () => {
     if (window.Kakao) {
@@ -62,10 +66,24 @@ const ChartContainer = () => {
     getList();
     initKakao();
     document.title = "제5회 레이크러너 팀전 레이스 대회";
+
     const d_day = new Date('2022-05-26 00:00:00');
+
     if (new Date().getTime() > d_day.getTime()) {
       fire();
+      setVisible(false);
     }
+
+    setInterval(() => {
+      const diff = d_day - new Date();
+      const hour = Math.floor(diff / (1000*60*60) % 24);
+      const min = Math.floor(diff / (1000*60) % 60);
+      const sec = Math.floor(diff / 1000 % 60);
+
+      setDiffHour(hour);
+      setDiffMin(min);
+      setDiffSec(sec);
+    }, 1000);
   }, []);
 
   const options = {
@@ -184,6 +202,11 @@ const ChartContainer = () => {
           <p className='mt-1 font-bold text-2xl'>{teamP}</p>
         </div>
       </div>
+      {visible && (
+        <div className='flex justify-center items-center mt-10'>
+          <div>남은 시간 : {diffHour < 10 && 0}{diffHour}:{diffMin < 10 && 0}{diffMin}:{diffSec < 10 && 0}{diffSec}</div>
+        </div>
+      )}
       <div className='flex justify-center text-center mt-10 fixed bottom-0 left-0 w-full'>
         <button type='button' className='w-full py-4 font-medium' style={{'backgroundColor': '#f3dc00', 'color': '#391d1d'}} onClick={shareKakao}>카카오톡으로 공유하기</button>
       </div>
