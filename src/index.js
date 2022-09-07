@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <App />
-    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+    {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
   </QueryClientProvider>,
   document.getElementById("root")
 );

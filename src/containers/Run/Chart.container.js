@@ -4,6 +4,7 @@ import client from "../../lib/api/client";
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import ReactCanvasConfetti from 'react-canvas-confetti';
+import Loader from '../../components/Common/Loader';
 
 const canvasStyles = {
   position: 'fixed',
@@ -19,24 +20,31 @@ function MyTimer({ expiryTimestamp }) {
     seconds,
     minutes,
     hours,
+    days
   } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
   return (
-    <div className='flex justify-center items-center mt-10'>
-      <div>남은 시간 {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}</div>
+    <div className='flex justify-center text-center items-center mt-4'>
+      <div className='text-center'>
+          <img src="/h.gif" alt="" className='m-auto' />
+          <div className='mt-1'>
+            {days > 0 && days + '일'} {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}
+          </div>
+      </div>
     </div>
   );
 }
 
 const ChartContainer = () => {
   const url = window.location.href;
-  const [teamJ, setTeamJ] = useState();
-  const [teamP, setTeamP] = useState();
-  const [diffJ, setDiffJ] = useState();
-  const [diffP, setDiffP] = useState();
-  const [runList, setRunList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [teamC, setTeamC] = useState(0);
+  const [teamW, setTeamW] = useState(0);
+  const [teamO, setTeamO] = useState(0);
+  const [runData, setRunData] = useState([]);
+  const [sortedData, setSortedData] = useState([]);
   const [visible, setVisible] = useState(true);
-  const d_day = new Date('2022-05-26 00:00:00');
+  const d_day = new Date('2022-09-09 24:00:00');
   
   const initKakao = () => {
     if (window.Kakao) {
@@ -51,8 +59,8 @@ const ChartContainer = () => {
     window.Kakao.Link.sendDefault({ 
       objectType: 'feed',
       content: {
-        title: '제5회 레이크러너 팀전 레이스 대회',
-        description: `J ${teamJ} vs P ${teamP}`,
+        title: '제6회 레이크러너 팀전 레이스 <삼국대전>',
+        description: `촉 ${teamW.toFixed(2)} vs 위 ${teamW.toFixed(2)} vs 오 ${teamO.toFixed(2)}`,
         imageUrl: 'http://mongchan.com/mbti.jpg',
         link: {
           mobileWebUrl: url,
@@ -63,26 +71,32 @@ const ChartContainer = () => {
   };    
 
   const getList = async () => {
-    const res = await client('/api/run');
-    setRunList(res.data);
-    
-    let sumJ = null;
-    let sumP = null;
+    const { data } = await client('/api/run');
+    setRunData(data);
 
-    res.data.map((item) => {
-      sumJ += item.data[0];
-      sumP += item.data[1];
+    data.map((item) => {
+      setTeamC(prev => prev + item.data[0]);
+      setTeamW(prev => prev + item.data[1]);
+      setTeamO(prev => prev + item.data[2]);
     });
-    setTeamJ(sumJ.toFixed(2));
-    setTeamP(sumP.toFixed(2));
-    setDiffJ((sumJ - sumP).toFixed(2));
-    setDiffP((sumP - sumJ).toFixed(2));
+
+    const sumData = data.filter((i) => {
+      return i.sumData = i.data[0] + i.data[1] + i.data[2];
+    });
+
+    sumData.sort(function(a, b) {
+      return b.sumData - a.sumData;
+    });
+
+    setSortedData(sumData);
+
+    setIsLoading(false);
   }
   
   useEffect(() => {
     getList();
     initKakao();
-    document.title = "제5회 레이크러너 팀전 레이스 대회";    
+    document.title = "제6회 레이크러너 팀전 레이스 <삼국대전>";
 
     if (new Date().getTime() > d_day.getTime()) {
       fire();
@@ -101,10 +115,10 @@ const ChartContainer = () => {
       type: 'bar'
     },
     title: {
-      text: '제5회 레이크러너 팀전 레이스 대회'
+      text: '제6회 레이크러너 팀전 레이스 <삼국대전>'
     },
     xAxis: {
-      categories: ['Team J', 'Team P']
+      categories: ['촉', '위', '오']
     },
     yAxis: {
       min: 0,
@@ -151,7 +165,7 @@ const ChartContainer = () => {
       '#FFCDD2',
       '#BBDEFB',
     ],
-    series: runList
+    series: runData
   };
 
   const refAnimationInstance = useRef(null);
@@ -199,35 +213,47 @@ const ChartContainer = () => {
   }, [makeShot]);
   
   return (
-    <div className='px-4 py-4'>
-      <HighchartsReact highcharts={ Highcharts } options={ options }/>
-      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
-      <div className='flex justify-center text-center mt-10'>
-        <div className='px-10 py-6 shadow-3xl rounded-3xl mx-4'>
-          <h3>Team J</h3>
-          <p className='mt-1 font-bold text-2xl'>{teamJ}</p>
-          <p className='mt-1 text-sm'>
-            {diffJ > 0 
-            ? (<span className=' text-red-600'>(+{diffJ})</span>) 
-            : (<span className='text-blue-600'>({diffJ})</span>)}
-          </p>
+    <div className='px-4 pt-4 pb-20'>
+      {isLoading
+      ?
+        <Loader />
+      :
+        <>
+        <HighchartsReact highcharts={ Highcharts } options={ options }/>
+        <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
+        {visible && (
+          <MyTimer expiryTimestamp={d_day} autoStart={true} />
+        )}
+        <div className='flex justify-center text-center mt-6 md:mt-8'>
+          <div className='px-6 md:px-10 py-4 md:py-6 shadow-3xl rounded-3xl mx-2 md:mx-4'>
+            <h3 className='font-bold text-green-600 text-lg'>촉</h3>
+            <p className='mt-3 font-bold text-xl md:text-2xl'>{teamC.toFixed(2)}</p>
+          </div>
+          <div className='px-6 md:px-10 py-4 md:py-6 shadow-3xl rounded-3xl mx-2 md:mx-4'>
+            <h3 className='font-bold text-blue-600 text-lg'>위</h3>
+            <p className='mt-3 font-bold text-xl md:text-2xl'>{teamW.toFixed(2)}</p>
+          </div>
+          <div className='px-6 md:px-10 py-4 md:py-6 shadow-3xl rounded-3xl mx-2 md:mx-4'>
+            <h3 className='font-bold text-red-600 text-lg'>오</h3>
+            <p className='mt-3 font-bold text-xl md:text-2xl'>{teamO.toFixed(2)}</p>
+          </div>
         </div>
-        <div className='px-10 py-6 shadow-3xl rounded-3xl mx-4'>
-          <h3>Team P</h3>
-          <p className='mt-1 font-bold text-2xl'>{teamP}</p>
-          <p className='mt-1 text-sm'>
-            {diffP > 0 
-            ? (<span className=' text-red-600'>(+{diffP})</span>) 
-            : (<span className='text-blue-600'>({diffP})</span>)}
-          </p>
+        <div className='w-60 py-6 px-10 m-auto mt-12 shadow-3xl rounded-3xl '>
+          {sortedData.map((user, index) => (
+            <li key={user._id} className='flex py-1'>
+              <div>{index + 1}. </div>
+              <div className='ml-1'>{user.name} -</div>
+              <div className='w-16 ml-2'>{user.sumData}</div>               
+            </li>
+          ))}
         </div>
-      </div>
-      {visible && (
-        <MyTimer expiryTimestamp={d_day} autoStart={true} />
-      )}
-      <div className='flex justify-center text-center mt-10 fixed bottom-0 left-0 w-full'>
-        <button type='button' className='w-full py-4 font-medium' style={{'backgroundColor': '#f3dc00', 'color': '#391d1d'}} onClick={shareKakao}>카카오톡으로 공유하기</button>
-      </div>
+        <div className='fixed bottom-2 right-4'>
+          <button type='button' className='w-10 h-10' onClick={shareKakao}>
+            <img src="/kakaotalk.png" alt="" className='w-full' />
+          </button>
+        </div>
+        </>
+      }
     </div>
   )
 }

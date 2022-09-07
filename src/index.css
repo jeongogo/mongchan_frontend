@@ -24,3 +24,9 @@ button {
 input:disabled {
   background-color: #f6f6f6;
 }
+
+ul,li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
