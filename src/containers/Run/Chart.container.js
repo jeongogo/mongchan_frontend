@@ -202,9 +202,9 @@ const ChartContainer = () => {
     },
 
     colors: [
-      '#4CAF50',
-      '#3F51B5',
-      '#F44336',
+      '#66BB6A',
+      '#5C6BC0',
+      '#EF5350',
     ],
   
     series: [{
