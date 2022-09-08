@@ -168,6 +168,57 @@ const ChartContainer = () => {
     series: runData
   };
 
+  const teamOptions = {
+
+    title: {
+      text: ''
+    },
+  
+    yAxis: {
+      title: {
+        text: '단위 km'
+      }
+    },
+  
+    xAxis: {
+      accessibility: {
+        rangeDescription: 'Range: 1 to 9'
+      }
+    },
+  
+    legend: {
+      layout: 'horizontal',
+      align: 'center',
+      verticalAlign: 'bottom'
+    },
+  
+    plotOptions: {
+      series: {
+        label: {
+          connectorAllowed: false
+        },
+        pointStart: 1
+      }
+    },
+
+    colors: [
+      '#4CAF50',
+      '#3F51B5',
+      '#F44336',
+    ],
+  
+    series: [{
+      name: '촉',
+      data: [28.01,70.68,127.75,169.66,210.54,274.16,334.85]
+    }, {
+      name: '위',
+      data: [53.84,85.48,151.88,167.41,182.41,233.7,248.7]
+    }, {
+      name: '오',
+      data: [63.41,108.14,160.98,228.2,236.77,298.39,357.39]
+    }],
+  }
+
   const refAnimationInstance = useRef(null);
 
   const getInstance = useCallback((instance) => {
@@ -213,7 +264,7 @@ const ChartContainer = () => {
   }, [makeShot]);
   
   return (
-    <div className='px-4 pt-4 pb-20'>
+    <div className='pt-4 pb-20'>
       {isLoading
       ?
         <Loader />
@@ -223,7 +274,7 @@ const ChartContainer = () => {
         <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
         {visible && (
           <MyTimer expiryTimestamp={d_day} autoStart={true} />
-        )}
+          )}
         <div className='flex justify-center text-center mt-6 md:mt-8'>
           <div className='px-6 md:px-10 py-4 md:py-6 shadow-3xl rounded-3xl mx-2 md:mx-4'>
             <h3 className='font-bold text-green-600 text-lg'>촉</h3>
@@ -237,6 +288,9 @@ const ChartContainer = () => {
             <h3 className='font-bold text-red-600 text-lg'>오</h3>
             <p className='mt-3 font-bold text-xl md:text-2xl'>{teamO.toFixed(2)}</p>
           </div>
+        </div>
+        <div className='mt-16'>
+          <HighchartsReact highcharts={ Highcharts } options={ teamOptions }/>
         </div>
         <div className='w-60 py-6 px-10 m-auto mt-12 shadow-3xl rounded-3xl '>
           {sortedData.map((user, index) => (
