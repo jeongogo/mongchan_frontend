@@ -10,11 +10,8 @@ import PostDetailPage from "./pages/Post/Detail.page";
 import PostEditPage from "./pages/Post/Edit.page";
 import RunPage from "./pages/Run/Chart.page";
 import RunEditPage from "./pages/Run/Edit.page";
-<<<<<<< HEAD
 import TestPage from "./pages/Test.page";
-=======
 import RunVdotPage from "./pages/Run/Vdot.page";
->>>>>>> 2848e557973e5c5ac1ac5d8c12292eb56368d0db
 import "./tailwind.css";
 
 function App() {
