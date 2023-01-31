@@ -10,6 +10,7 @@ import PostDetailPage from "./pages/Post/Detail.page";
 import PostEditPage from "./pages/Post/Edit.page";
 import RunPage from "./pages/Run/Chart.page";
 import RunEditPage from "./pages/Run/Edit.page";
+import TestPage from "./pages/Test.page";
 import "./tailwind.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/test" element={<TestPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mypage" element={<MypagePage />} />
