@@ -12,7 +12,7 @@ const ChartContainer = () => {
   
   useEffect(() => {
     getList();
-    document.title = "제7회 레이크러너 팀전 레이스 <LAKE CUP 2022>";
+    document.title = "제8회 레이크러너 팀전 레이스";
   }, []);
 
   const save = async (id, data1, data2) => {
