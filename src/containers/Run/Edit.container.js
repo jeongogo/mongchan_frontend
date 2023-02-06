@@ -7,6 +7,7 @@ const ChartContainer = () => {
 
   const getList = async () => {
     const res = await client.get('/api/run/edit');
+    console.log(res.data)
     setRunList(res.data);
   }
   
@@ -15,11 +16,13 @@ const ChartContainer = () => {
     document.title = "제8회 레이크러너 팀전 레이스";
   }, []);
 
-  const save = async (id, data1, data2) => {
-    const data = {data: [data1, data2]};
-
+  const save = async (id, week, data1, data2) => {
+    const data = {
+      data: [data1, data2]
+    }
+    
     try {
-      const res = await client.post(`/api/run/edit/${id}`, data);
+      const res = await client.post(`/api/run/edit/${id}`, { week, data });
       alert('저장 완료');
       console.log(res.data);
     } catch (e) {
