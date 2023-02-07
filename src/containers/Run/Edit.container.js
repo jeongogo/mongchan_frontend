@@ -1,18 +1,38 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import client from "../../lib/api/client";
 import Edit from '../../components/Run/Edit';
 
 const ChartContainer = () => {
+  const { week } = useParams();
   const [runList, setRunList] = useState([]);
+  const [team, setTeam] = useState();
+  const [teamData1, setTeamData1] = useState();
+  const [teamData2, setTeamData2] = useState();
 
   const getList = async () => {
-    const res = await client.get('/api/run/edit');
-    console.log(res.data)
-    setRunList(res.data);
+    const { data } = await client.get('/api/run/edit');
+    setRunList(data);
+  }
+
+  const getTeam = async () => {
+    const { data } = await client.get('/api/run/team');
+    setTeam(data);
+    if (week === '1') {
+      setTeamData1(data.week1[0]);
+      setTeamData2(data.week1[1]);      
+    } else if (week === '2') {
+      setTeamData1(data.week2[0]);
+      setTeamData2(data.week2[1]);
+    } else if (week === '3') {
+      setTeamData1(data.week3[0]);
+      setTeamData2(data.week3[1]);
+    }
   }
   
   useEffect(() => {
     getList();
+    getTeam();
     document.title = "제8회 레이크러너 팀전 레이스";
   }, []);
 
@@ -29,10 +49,26 @@ const ChartContainer = () => {
       console.log(e);
     }
   };
+
+  const onSaveTeam = async () => {
+    try {
+      const res = await client.post('/api/run/team', { week, data: [teamData1, teamData2] });
+      alert('저장 완료');
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   
   return (
     <div className='px-4 py-4'>
       <div className='flex w-48 m-auto justify-between'><span className='ml-10'>Group A</span><span>Group B</span></div>
+      <div className='flex justify-center items-center py-1'>
+        <div className='w-20 text-right pr-4'>팀 가산점</div>
+        <input type="text" value={teamData1} onChange={(e) => setTeamData1(e.target.value)} className="border w-20 py-1 text-center mr-2 text-green-600" />
+        <input type="text" value={teamData2} onChange={(e) => setTeamData2(e.target.value)} className="border w-20 py-1 text-center mr-2 text-blue-600" />
+        <button type='button' onClick={() => onSaveTeam()}>저장</button>
+      </div>
       {runList && runList.map((item) => <Edit item={item} key={item._id} save={save} />)}
     </div>
   )

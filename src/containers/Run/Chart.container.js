@@ -17,6 +17,9 @@ const ChartContainer = () => {
   const [runData2, setRunData2] = useState([]);
   const [runData3, setRunData3] = useState([]);
   const [sortedData, setSortedData] = useState([]);
+  const [teamPlus1, setTeamPlus1] = useState([]);
+  const [teamPlus2, setTeamPlus2] = useState([]);
+  const [teamPlus3, setTeamPlus3] = useState([]);
 
   const initKakao = () => {
     if (window.Kakao) {
@@ -41,6 +44,13 @@ const ChartContainer = () => {
       },
     });
   };
+
+  const getTeam = async () => {
+    const { data } = await client.get('/api/run/team');
+    setTeamPlus1(data.week1);
+    setTeamPlus2(data.week2);
+    setTeamPlus3(data.week3);
+  }
 
   const getList = async () => {
     const { data } = await client("/api/run");
@@ -89,6 +99,7 @@ const ChartContainer = () => {
   };
 
   useEffect(() => {
+    getTeam();
     getList();
     initKakao();
     document.title = "제8회 레이크러너 팀전 레이스";
@@ -283,14 +294,16 @@ const ChartContainer = () => {
               <div className="px-6 md:px-10 py-4 md:py-6 mx-2 md:mx-4">
                 <h3 className="font-bold text-green-600 text-lg">오수민팀</h3>
                 <p className="mt-3 font-bold text-xl md:text-2xl">
-                  {teamA1.toFixed(2)}
+                  {(+teamA1 + +teamPlus1[0]).toFixed(2)}
                 </p>
+                <p className="mt-1  text-red-400 font-bold">(+{teamPlus1[0]})</p>
               </div>
               <div className="px-6 md:px-10 py-4 md:py-6 mx-2 md:mx-4">
                 <h3 className="font-bold text-blue-600 text-lg">김민서팀</h3>
                 <p className="mt-3 font-bold text-xl md:text-2xl">
-                  {teamB1.toFixed(2)}
+                  {(+teamB1 + +teamPlus1[1]).toFixed(2)}
                 </p>
+                <p className="mt-1  text-red-400 font-bold">(+{teamPlus1[1]})</p>
               </div>
             </div>
           </div>
@@ -302,14 +315,16 @@ const ChartContainer = () => {
               <div className="px-6 md:px-10 py-4 md:py-6 mx-2 md:mx-4">
                 <h3 className="font-bold text-green-600 text-lg">오수민팀</h3>
                 <p className="mt-3 font-bold text-xl md:text-2xl">
-                  {teamA2.toFixed(2)}
+                  {(+teamA2 + +teamPlus2[0]).toFixed(2)}
                 </p>
+                <p className="mt-1  text-red-400 font-bold">(+{teamPlus2[0]})</p>
               </div>
               <div className="px-6 md:px-10 py-4 md:py-6 mx-2 md:mx-4">
                 <h3 className="font-bold text-blue-600 text-lg">김민서팀</h3>
                 <p className="mt-3 font-bold text-xl md:text-2xl">
-                  {teamB2.toFixed(2)}
+                  {(+teamB2 + +teamPlus2[1]).toFixed(2)}
                 </p>
+                <p className="mt-1  text-red-400 font-bold">(+{teamPlus2[1]})</p>
               </div>
             </div>
           </div>
@@ -321,14 +336,16 @@ const ChartContainer = () => {
               <div className="px-6 md:px-10 py-4 md:py-6 mx-2 md:mx-4">
                 <h3 className="font-bold text-green-600 text-lg">오수민팀</h3>
                 <p className="mt-3 font-bold text-xl md:text-2xl">
-                  {teamA3.toFixed(2)}
+                  {(+teamA3 + +teamPlus3[0]).toFixed(2)}
                 </p>
+                <p className="mt-1  text-red-400 font-bold">(+{teamPlus3[0]})</p>
               </div>
               <div className="px-6 md:px-10 py-4 md:py-6 mx-2 md:mx-4">
                 <h3 className="font-bold text-blue-600 text-lg">김민서팀</h3>
                 <p className="mt-3 font-bold text-xl md:text-2xl">
-                  {teamB3.toFixed(2)}
+                  {(+teamB3 + +teamPlus3[1]).toFixed(2)}
                 </p>
+                <p className="mt-1  text-red-400 font-bold">(+{teamPlus3[1]})</p>
               </div>
             </div>
           </div>
