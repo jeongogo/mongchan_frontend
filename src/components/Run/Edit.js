@@ -17,19 +17,9 @@ const Edit = ({ item, save }) => {
   }
 
   useEffect(() => {
-    if (week === '1') {
-      setData1(item.week1.data[0]);
-      setData2(item.week1.data[1]);
-    }
-    if (week === '2') {
-      setData1(item.week2.data[0]);
-      setData2(item.week2.data[1]);
-    }
-    if (week === '3') {
-      setData1(item.week3.data[0]);
-      setData2(item.week3.data[1]);
-    }
-    const teamA = ['오수민', '김성범', '김태운', '이해영', '김동민', '오승준', '최원영', '정유진', '이예지', '이은규', '박지수'];
+    setData1(item.data[0]);
+    setData2(item.data[1]);
+    const teamA = ['양지형', '노기식', '이수현', '안진홍', '김민서', '길영석', '채송아', '이은규'];
     if (teamA.includes(item.name)) {
       setGroup('A');
     } else {
@@ -39,9 +29,9 @@ const Edit = ({ item, save }) => {
 
   return (
     <div className='flex justify-center items-center py-1'>
-      <div className='w-20 text-right pr-4'><span style={{ color: group === 'A' ? 'green' : 'blue'}}>{item.name}</span></div>
-      <input type="text" value={data1} onChange={(e) => setData1(e.target.value)} className="border w-20 py-1 text-center mr-2 text-green-600" />
-      <input type="text" value={data2} onChange={(e) => setData2(e.target.value)} className="border w-20 py-1 text-center mr-2 text-blue-600" />
+      <div className='w-20 text-right pr-4'><span style={{ color: group === 'A' ? 'blue' : 'black'}}>{item.name}</span></div>
+      <input type="text" value={data1} onChange={(e) => setData1(e.target.value)} className="border w-20 py-1 text-center mr-2 text-blue-600" />
+      <input type="text" value={data2} onChange={(e) => setData2(e.target.value)} className="border w-20 py-1 text-center mr-2 text-black-600" />
       <button type='button' onClick={() => onSave(item._id, week, data1, data2)}>저장</button>
     </div>
   )

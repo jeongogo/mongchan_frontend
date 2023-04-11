@@ -31,7 +31,7 @@ function App() {
           <Route path="/posts/detail/:id" element={<PostDetailPage />} />
           <Route path="/posts/edit/:id" element={<PostEditPage />} />
           <Route path="/run" element={<RunPage />} />
-          <Route path="/run/edit/:week" element={<RunEditPage />} />
+          <Route path="/run/edit" element={<RunEditPage />} />
           <Route path="/run/vdot" element={<RunVdotPage />} />
         </Routes>
       </BrowserRouter>
