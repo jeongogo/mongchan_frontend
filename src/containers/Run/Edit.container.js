@@ -4,12 +4,13 @@ import Edit from '../../components/Run/Edit';
 
 const ChartContainer = () => {
   const [runList, setRunList] = useState([]);
-  const [teamData1, setTeamData1] = useState();
-  const [teamData2, setTeamData2] = useState();
+  const [teamData1, setTeamData1] = useState(0);
+  const [teamData2, setTeamData2] = useState(0);
 
   const getList = async () => {
     const { data } = await client.get('/api/run/edit');
     setRunList(data);
+    console.log(data)
   }
 
   const getTeam = async () => {
@@ -24,13 +25,12 @@ const ChartContainer = () => {
     document.title = "제9회 레이크러너 팀전 레이스";
   }, []);
 
-  const save = async (id, week, data1, data2) => {
+  const save = async (id, data1, data2) => {
     const data = {
       data: [data1, data2]
     }
-    
     try {
-      const res = await client.post(`/api/run/edit/${id}`, { week, data });
+      const res = await client.post(`/api/run/edit/${id}`, data);
       alert('저장 완료');
       console.log(res.data);
     } catch (e) {

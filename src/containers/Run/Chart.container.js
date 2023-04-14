@@ -27,7 +27,7 @@ const ChartContainer = () => {
       objectType: "feed",
       content: {
         title: "제9회 레이크러너 팀전 레이스",
-        description: `A ${teamA.toFixed(2)} vs B ${teamB.toFixed(2)}`,
+        description: `A ${teamPlus[0].toFixed(2) + teamA.toFixed(2)} vs B ${teamPlus[1].toFixed(2) + teamB.toFixed(2)}`,
         imageUrl: "http://mongchan.com/share.jpg",
         link: {
           mobileWebUrl: url,
