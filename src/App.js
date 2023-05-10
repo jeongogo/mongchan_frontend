@@ -12,6 +12,7 @@ import RunPage from "./pages/Run/Chart.page";
 import RunEditPage from "./pages/Run/Edit.page";
 import TestPage from "./pages/Test.page";
 import RunVdotPage from "./pages/Run/Vdot.page";
+import PolicyPage from "./pages/Policy.page";
 import "./tailwind.css";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/run" element={<RunPage />} />
           <Route path="/run/edit" element={<RunEditPage />} />
           <Route path="/run/vdot" element={<RunVdotPage />} />
+          <Route path="/policy" element={<PolicyPage />} />
         </Routes>
       </BrowserRouter>
     </div>
